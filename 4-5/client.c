@@ -94,7 +94,6 @@ int main(int argc, char* argv[])
         echoLen = sizeof(res);
         totalBytesRcvd = 0;
         fromSize = sizeof(fromAddr);
-        printf("OK\n");
         while (totalBytesRcvd < echoLen)
         {
             if ((bytesRcvd = recvfrom(sock, res, sizeof(res), 0, (struct sockaddr *)&fromAddr, &fromSize)) < 0)
