@@ -51,10 +51,10 @@ int main(int argc, char* argv[])
         perror("socket() failed");
 
     /* Set TTL of multicast packet */
-    if (setsockopt(sock, IPPROTO_IP, IP_MULTICAST_TTL, (void *) &multicastTTL,
-          sizeof(multicastTTL)) < 0)
+    if (setsockopt(sock,  SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0) {
         perror("setsockopt() failed");
-
+        return 0;
+    }
     /* Construct local address structure */
     memset(&multicastAddr, 0, sizeof(multicastAddr));   /* Zero out structure */
     multicastAddr.sin_family = AF_INET;                 /* Internet address family */
