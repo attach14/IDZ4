@@ -29,6 +29,10 @@ int main(int argc, char* argv[]) {
         perror("socket() failed");
         return 0;
     }
+    if (setsockopt(sock,  SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0) {
+        perror("setsockopt() failed");
+        return 0;
+    }
     (void)signal(SIGINT, my_handler);
     /* Construct bind structure */
     memset(&multicastAddr, 0, sizeof(multicastAddr));   /* Zero out structure */
@@ -51,7 +55,7 @@ int main(int argc, char* argv[]) {
           sizeof(multicastRequest)) < 0) {
             perror("setsockopt() failed");
             return 0;
-        }
+    }
     double res[2];
     /* Receive a single datagram from the server */
     for(;;) {
